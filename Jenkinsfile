@@ -21,7 +21,7 @@ pipeline {
                 sh '''
                    # Use system python directly to avoid venv issues
                    python3 -m pip install --upgrade pip
-                   python3 -m pip install -r requirements.txt
+                   sh 'python3 -m pip install -r backend/requirements.txt'
                    pytest -q || true   # continue even if tests fail
                 '''
             }
