@@ -1,0 +1,25 @@
+# k8s/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dev-g5-config
+  namespace: production
+data:
+  NODE_ENV: "production"
+  API_URL: "http://dev-g5-backend-service:3000"
+  DATABASE_HOST: "dev-g5-database-service"
+  DATABASE_PORT: "5432"
+  DATABASE_NAME: "devg5db"
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: dev-g5-secrets
+  namespace: production
+type: Opaque
+stringData:
+  DATABASE_USER: "devg5user"
+  DATABASE_PASSWORD: "your-secure-password"
+  JWT_SECRET: "your-jwt-secret"
+  API_KEY: "your-api-key"
