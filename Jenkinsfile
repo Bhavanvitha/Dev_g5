@@ -31,9 +31,20 @@ pipeline {
         stage('Docker Build & Push') {
             steps {
                 sh '''
+                   echo "Logging into Azure Container Registry..."
                    az acr login --name $REGISTRY_NAME
-                   docker build -t $REGISTRY/$IMAGE_NAME:$IMAGE_TAG .
-                   docker push $REGISTRY/$IMAGE_NAME:$IMAGE_TAG
+                   
+                   echo "Building Backend Docker image..."
+                   docker build -t $REGISTRY/$IMAGE_NAME-backend:$IMAGE_TAG ./backend
+                   
+                   echo "Building Frontend Docker image..."
+                   docker build -t $REGISTRY/$IMAGE_NAME-frontend:$IMAGE_TAG ./frontend
+                   
+                   echo "Pushing Backend Docker image..."
+                   docker push $REGISTRY/$IMAGE_NAME-backend:$IMAGE_TAG
+                   
+                   echo "Pushing Frontend Docker image..."
+                   docker push $REGISTRY/$IMAGE_NAME-frontend:$IMAGE_TAG
                 '''
             }
         }
