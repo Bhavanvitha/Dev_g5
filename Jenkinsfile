@@ -2,9 +2,10 @@ pipeline {
     agent any
 
     environment {
-        REGISTRY   = 'myregistry.azurecr.io'
-        IMAGE_NAME = 'agentic-ai-2'
-        IMAGE_TAG  = "${BUILD_NUMBER}"
+        REGISTRY      = 'myregistry.azurecr.io'
+        REGISTRY_NAME = 'myregistry'  // Added registry name to avoid cut command issue
+        IMAGE_NAME    = 'agentic-ai-2'
+        IMAGE_TAG     = "${BUILD_NUMBER}"
     }
 
     stages {
@@ -30,7 +31,6 @@ pipeline {
         stage('Docker Build & Push') {
             steps {
                 sh '''
-                   REGISTRY_NAME=$(echo $REGISTRY | cut -d'.' -f1)
                    az acr login --name $REGISTRY_NAME
                    docker build -t $REGISTRY/$IMAGE_NAME:$IMAGE_TAG .
                    docker push $REGISTRY/$IMAGE_NAME:$IMAGE_TAG
