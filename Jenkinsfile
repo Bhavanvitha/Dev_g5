@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     environment {
-        REGISTRY      = 'myregistry.azurecr.io'
-        REGISTRY_NAME = 'myregistry'  // Added registry name to avoid cut command issue
+        REGISTRY      = 'myregistry5.azurecr.io'
+        REGISTRY_NAME = 'myregistry5'  // Added registry name to avoid cut command issue
         IMAGE_NAME    = 'agentic-ai-2'
         IMAGE_TAG     = "${BUILD_NUMBER}"
     }
